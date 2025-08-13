@@ -202,12 +202,12 @@ const TestForm = ({ userName }) => {
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center sm:text-left break-words">Hola, {userName}</h1>
           <Timer duration={15 * 60} onTimeout={handleTimeout} />
         </div>
-        {/* Progreso */}
-        <div className="text-center text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 font-medium">
-          {currentQuestionIndex + 1} de {shuffledQuestions.length}
+        {/* Progreso arriba de la pregunta */}
+        <div className="text-center text-xs sm:text-base text-gray-600 mb-2 sm:mb-4 font-medium">
+          Pregunta {currentQuestionIndex + 1} de {shuffledQuestions.length}
         </div>
         {/* Área de la pregunta, responsiva y ajustable */}
-        <div className="relative flex items-center justify-center min-h-[8rem] sm:min-h-[10rem] md:min-h-[12rem] w-full">
+        <div className="relative flex items-center justify-center min-h-[8rem] sm:min-h-[10rem] md:min-h-[12rem] w-full mb-2 sm:mb-4">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={currentQuestionIndex}
@@ -216,7 +216,7 @@ const TestForm = ({ userName }) => {
               initial="enter"
               animate="center"
               exit="exit"
-              className="absolute w-full px-2 sm:px-4 break-words"
+              className="absolute w-full px-2 sm:px-4 break-words text-base sm:text-lg text-center"
             >
               <Question
                 question={shuffledQuestions[currentQuestionIndex]}
@@ -228,12 +228,12 @@ const TestForm = ({ userName }) => {
             </motion.div>
           </AnimatePresence>
         </div>
-        {/* Botones de navegación, responsivos */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-2 mt-6 sm:mt-8 w-full">
+        {/* Botones de navegación, responsivos y alineados */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 mt-6 sm:mt-8 w-full">
           <button
             onClick={handlePrev}
             disabled={currentQuestionIndex === 0}
-            className="bg-gray-500 text-white py-2 px-4 sm:px-6 rounded-full disabled:bg-gray-300 transition duration-300 w-full sm:w-auto"
+            className="bg-gray-500 text-white py-2 px-4 sm:px-6 rounded-full disabled:bg-gray-300 transition duration-300 w-full sm:w-auto text-base"
           >
             Anterior
           </button>
@@ -241,7 +241,7 @@ const TestForm = ({ userName }) => {
             <button
               onClick={handleSubmit}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-4 sm:px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 w-full sm:w-auto"
+              className="bg-indigo-600 text-white py-2 px-4 sm:px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 w-full sm:w-auto text-base"
             >
               Finalizar Test
             </button>
@@ -249,7 +249,7 @@ const TestForm = ({ userName }) => {
             <button
               onClick={handleNext}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-4 sm:px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 w-full sm:w-auto"
+              className="bg-indigo-600 text-white py-2 px-4 sm:px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 w-full sm:w-auto text-base"
             >
               Siguiente
             </button>

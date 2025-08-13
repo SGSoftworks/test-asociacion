@@ -1,10 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import TestForm from "./components/TestForm"; // <-- Importado el TestForm
 import ResultsPage from "./pages/ResultsPage";
 import AdminPage from "./pages/AdminPage";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext"; // Asumiendo que crearás este contexto
 
 function App() {
   return (
@@ -43,8 +42,6 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/test" element={<TestForm />} />{" "}
-              {/* <-- Nueva ruta para el test */}
               <Route path="/results" element={<ResultsPage />} />
               <Route path="/admin" element={<AdminPage />} />
             </Routes>

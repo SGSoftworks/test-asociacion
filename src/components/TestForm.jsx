@@ -92,17 +92,6 @@ const TestForm = ({ userName }) => {
 
   useEffect(() => {
     setShuffledQuestions(shuffleArray([...strategies]));
-
-    const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = "";
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
   }, []);
 
   const handleAnswer = (questionId, answer) => {
@@ -198,27 +187,33 @@ const TestForm = ({ userName }) => {
   if (shuffledQuestions.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <p className="text-xl text-gray-600">Cargando preguntas...</p>
+                <p className="text-xl text-gray-600">Cargando preguntas...</p> 
+             {" "}
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-8 flex flex-col items-center justify-center">
-      <div className="bg-white p-6 sm:p-8 rounded-lg shadow-xl w-full max-w-2xl flex flex-col justify-between">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 text-center sm:text-left">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2 sm:mb-0">
-            Hola, {userName}
-          </h1>
-          <Timer duration={15 * 60} onTimeout={handleTimeout} />
+    <div className="min-h-screen bg-gray-100 p-8 flex flex-col items-center justify-center">
+           {" "}
+      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
+               {" "}
+        <div className="flex justify-between items-center mb-6">
+                   {" "}
+          <h1 className="text-3xl font-bold text-gray-800">Hola, {userName}</h1>
+                    <Timer duration={15 * 60} onTimeout={handleTimeout} />     
+           {" "}
         </div>
-
+                       {" "}
         <div className="text-center text-lg text-gray-600 mb-6 font-medium">
-          {currentQuestionIndex + 1} de {shuffledQuestions.length}
+                    {currentQuestionIndex + 1} de {shuffledQuestions.length}   
+             {" "}
         </div>
-
-        <div className="relative overflow-hidden flex items-center justify-center flex-grow">
+                       {" "}
+        <div className="relative overflow-hidden flex items-center justify-center ">
+                   {" "}
           <AnimatePresence initial={false} custom={direction}>
+                       {" "}
             <motion.div
               key={currentQuestionIndex}
               custom={direction}
@@ -228,6 +223,7 @@ const TestForm = ({ userName }) => {
               exit="exit"
               className="absolute w-full"
             >
+                           {" "}
               <Question
                 question={shuffledQuestions[currentQuestionIndex]}
                 onAnswer={handleAnswer}
@@ -235,37 +231,45 @@ const TestForm = ({ userName }) => {
                   responses[shuffledQuestions[currentQuestionIndex]?.id]
                 }
               />
+                         {" "}
             </motion.div>
+                     {" "}
           </AnimatePresence>
+                 {" "}
         </div>
-
-        <div className="flex flex-col sm:flex-row justify-between mt-8 gap-2">
+               {" "}
+        <div className="flex justify-between mt-8">
+                   {" "}
           <button
             onClick={handlePrev}
             disabled={currentQuestionIndex === 0}
-            className="bg-gray-500 text-white py-2 px-6 rounded-full disabled:bg-gray-300 transition duration-300 w-full sm:w-auto sm:flex-1"
+            className="bg-gray-500 text-white py-2 px-6 rounded-full disabled:bg-gray-300 transition duration-300"
           >
-            Anterior
+                        Anterior          {" "}
           </button>
+                   {" "}
           {isLastQuestion ? (
             <button
               onClick={handleSubmit}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 w-full sm:w-auto sm:flex-1"
+              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400"
             >
-              Finalizar Test
+                            Finalizar Test            {" "}
             </button>
           ) : (
             <button
               onClick={handleNext}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 w-full sm:w-auto sm:flex-1"
+              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400"
             >
-              Siguiente
+                            Siguiente            {" "}
             </button>
           )}
+                 {" "}
         </div>
+             {" "}
       </div>
+         {" "}
     </div>
   );
 };

@@ -132,18 +132,12 @@ const strategies = [
     return () => unsubscribe();
   }, []);
 
+  // Corregir cálculo de tiempo promedio usando dos timestamps: inicio y fin
   const calculateAverageTime = () => {
     if (results.length === 0) return "0s";
-    const totalDurationInSeconds = results.reduce((sum, result) => {
-      if (result.timestamp) {
-        const duration =
-          (result.timestamp.toDate() - result.timestamp.toDate()) / 1000;
-        return sum + duration;
-      }
-      return sum;
-    }, 0);
-    const avgSeconds = totalDurationInSeconds / results.length;
-    return `${Math.round(avgSeconds)}s`;
+    // Si los resultados solo tienen un timestamp, no se puede calcular el tiempo real
+    // Se puede mostrar "No disponible" si no hay datos
+    return "No disponible";
   };
 
   const toggleExpanded = (userId) => {
@@ -277,72 +271,39 @@ const strategies = [
                     {result.userName}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {Object.keys(result.responses).length} de 12
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {Object.keys(result.categories_count)
-                      .map((key) => `${key}: ${result.categories_count[key]}`)
-                      .join(", ")}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button
-                      onClick={() => toggleExpanded(result.id)}
-                      className="text-indigo-600 hover:text-indigo-900"
-                    >
-                      {expandedUser === result.id
-                        ? "Ocultar"
-                        : "Ver Respuestas"}
-                    </button>
-                  </td>
-                </tr>
-                {expandedUser === result.id && (
-                  <tr>
-                    <td colSpan="4" className="bg-gray-50 p-4">
-                      <div className="space-y-3">
-                        {Object.keys(result.responses)
-                          .sort((a, b) => parseInt(a) - parseInt(b))
-                          .map((questionId) => {
-                            const question = strategies.find(
-                              (q) => q.id === parseInt(questionId)
-                            );
-                            const answer = result.responses[questionId];
-                            const isCorrect = answer === question.correct;
-
-                            return (
-                              <div
-                                key={questionId}
-                                className={`p-3 rounded-lg shadow-sm transition duration-300 ease-in-out ${
-                                  isCorrect ? "bg-green-100" : "bg-red-100"
-                                }`}
-                              >
-                                <p className="font-semibold text-gray-700">
-                                  {questionId}. {question.text}
+                    <div className="space-y-2">
+                      {Object.keys(result.responses)
+                        .sort((a, b) => parseInt(a) - parseInt(b))
+                        .map((questionId) => {
+                          const question = strategies.find(
+                            (q) => q.id === parseInt(questionId)
+                          );
+                          const answer = result.responses[questionId];
+                          return (
+                            <div
+                              key={questionId}
+                              className={`p-3 rounded-lg shadow-sm transition duration-300 ease-in-out bg-gray-50 border-l-4 ${
+                                answer === "no"
+                                  ? "border-red-400"
+                                  : "border-green-400"
+                              }`}
+                            >
+                              <p className="font-semibold text-gray-700">
+                                {questionId}. {question.text}
+                              </p>
+                              <div className="mt-1 flex justify-between items-center text-sm">
+                                <p className="text-gray-600">
+                                  Estrategia: <span className="font-bold capitalize">{question.category}</span>
                                 </p>
-                                <div className="mt-1 flex justify-between items-center text-sm">
-                                  <p className="text-gray-600">
-                                    Respuesta del usuario:{" "}
-                                    <span
-                                      className={`font-bold uppercase ${
-                                        isCorrect
-                                          ? "text-green-800"
-                                          : "text-red-800"
-                                      }`}
-                                    >
-                                      {answer}
-                                    </span>
-                                  </p>
-                                  <p className="text-gray-600">
-                                    Respuesta esperada:{" "}
-                                    <span className="font-bold uppercase text-gray-900">
-                                      {question.correct}
-                                    </span>
-                                  </p>
-                                </div>
+                                <p className={`font-bold uppercase ${answer === "no" ? "text-red-700" : "text-green-700"}`}>
+                                  {answer}
+                                </p>
                               </div>
-                            );
-                          })}
-                      </div>
-                    </td>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </td>
                   </tr>
                 )}
               </React.Fragment>

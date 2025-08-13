@@ -24,17 +24,11 @@ const ResultsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8 flex flex-col lg:flex-row gap-8">
-      {/* Contenedor izquierdo (ResultsUser) */}
-      <div className="w-full lg:w-1/2">
+    <div className="min-h-screen bg-gray-100 p-8 flex flex-col items-center justify-center">
+      <div className="w-full max-w-2xl">
         <ResultsUser userResults={userResults} />
-      </div>
-
-      {/* Contenedor derecho (GeneralStats y el código único) */}
-      <div className="w-full lg:w-1/2 flex flex-col gap-8">
-        <GeneralStats userResults={userResults} />
         {uniqueCode && (
-          <div className="p-6 bg-yellow-100 rounded-lg text-yellow-800 shadow-md">
+          <div className="p-6 bg-yellow-100 rounded-lg text-yellow-800 shadow-md mt-8">
             <h3 className="text-xl font-bold">¡Guarda tu código! 🔑</h3>
             <p className="mt-2 text-lg">
               Si quieres volver a ver tus resultados más tarde y seguir

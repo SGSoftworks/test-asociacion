@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import ResultsPage from "./pages/ResultsPage";
 import AdminPage from "./pages/AdminPage";
+import InitialScreen from "./components/InitialScreen"; // Importa el componente de inicio
+import TestForm from "./components/TestForm"; // Importa el componente del test
 import { AuthProvider } from "./context/AuthContext"; // Asumiendo que crearás este contexto
 
 function App() {
@@ -41,7 +42,10 @@ function App() {
 
           <main>
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              {/* La ruta principal ahora muestra la pantalla de inicio del test */}
+              <Route path="/" element={<InitialScreen />} />
+              {/* Nueva ruta para el test en progreso */}
+              <Route path="/test" element={<TestForm />} />
               <Route path="/results" element={<ResultsPage />} />
               <Route path="/admin" element={<AdminPage />} />
             </Routes>

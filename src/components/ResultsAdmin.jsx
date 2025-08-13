@@ -16,68 +16,68 @@ const ResultsAdmin = () => {
   const navigate = useNavigate(); // Inicializa el hook de navegación
   const auth = getAuth(); // Obtiene la instancia de auth
 
-const strategies = [
-  {
-    id: 1,
-    text: "Cuando una persona se enoja conmigo, busco entender las razones por las que está enojada.",
-    category: "redireccionamiento",
-  },
-  {
-    id: 2,
-    text: "Cuando siento enojo o rabia, tomo una respiración profunda antes de actuar.",
-    category: "respiracion",
-  },
-  {
-    id: 3,
-    text: "Logro anticipar situaciones que me pueden generar emociones desagradables y tomo acciones para evitar que estas emociones escalen.",
-    category: "distraccion",
-  },
-  {
-    id: 4,
-    text: "Cuando algo me causa malestar, busco una actividad para distraerme: ver películas, comer algo dulce u otras.",
-    category: "anticipacion",
-  },
-  {
-    id: 5,
-    text: "Cuando siento frustración, busco comprender cuáles son los obstáculos que me están impidiendo lograr mi objetivo.",
-    category: "redireccionamiento",
-  },
-  {
-    id: 6,
-    text: "Hago ejercicios de respiración recurrentes para encontrar la calma.",
-    category: "respiracion",
-  },
-  {
-    id: 7,
-    text: "Si una situación me genera estrés, la suspendo y prefiero hacer otra cosa.",
-    category: "distraccion",
-  },
-  {
-    id: 8,
-    text: "Evito ciertas situaciones de las cuales tengo certeza que me pueden generar malestar.",
-    category: "anticipacion",
-  },
-  {
-    id: 9,
-    text: "Cuando una situación me causa mucha alegría o satisfacción, comprendo qué factores incidieron en el resultado de esto, para replicarlos.",
-    category: "redireccionamiento",
-  },
-  {
-    id: 10,
-    text: "Realizo prácticas de meditación para transformar mis emociones.",
-    category: "respiracion",
-  },
-  {
-    id: 11,
-    text: "Sé qué hacer para no exasperarme cuando hay situaciones que me pueden generar malestar.",
-    category: "distraccion",
-  },
-  {
-    id: 12,
-    text: "Cuando algo me molesta, prefiero quedarme callado/a.",
-    category: "anticipacion",
-  },
-];
+  const strategies = [
+    {
+      id: 1,
+      text: "Cuando una persona se enoja conmigo, busco entender las razones por las que está enojada.",
+      category: "redireccionamiento",
+    },
+    {
+      id: 2,
+      text: "Cuando siento enojo o rabia, tomo una respiración profunda antes de actuar.",
+      category: "respiracion",
+    },
+    {
+      id: 3,
+      text: "Logro anticipar situaciones que me pueden generar emociones desagradables y tomo acciones para evitar que estas emociones escalen.",
+      category: "distraccion",
+    },
+    {
+      id: 4,
+      text: "Cuando algo me causa malestar, busco una actividad para distraerme: ver películas, comer algo dulce u otras.",
+      category: "anticipacion",
+    },
+    {
+      id: 5,
+      text: "Cuando siento frustración, busco comprender cuáles son los obstáculos que me están impidiendo lograr mi objetivo.",
+      category: "redireccionamiento",
+    },
+    {
+      id: 6,
+      text: "Hago ejercicios de respiración recurrentes para encontrar la calma.",
+      category: "respiracion",
+    },
+    {
+      id: 7,
+      text: "Si una situación me genera estrés, la suspendo y prefiero hacer otra cosa.",
+      category: "distraccion",
+    },
+    {
+      id: 8,
+      text: "Evito ciertas situaciones de las cuales tengo certeza que me pueden generar malestar.",
+      category: "anticipacion",
+    },
+    {
+      id: 9,
+      text: "Cuando una situación me causa mucha alegría o satisfacción, comprendo qué factores incidieron en el resultado de esto, para replicarlos.",
+      category: "redireccionamiento",
+    },
+    {
+      id: 10,
+      text: "Realizo prácticas de meditación para transformar mis emociones.",
+      category: "respiracion",
+    },
+    {
+      id: 11,
+      text: "Sé qué hacer para no exasperarme cuando hay situaciones que me pueden generar malestar.",
+      category: "distraccion",
+    },
+    {
+      id: 12,
+      text: "Cuando algo me molesta, prefiero quedarme callado/a.",
+      category: "anticipacion",
+    },
+  ];
 
   const categories = [
     "all",
@@ -132,12 +132,9 @@ const strategies = [
     return () => unsubscribe();
   }, []);
 
-  // Corregir cálculo de tiempo promedio usando dos timestamps: inicio y fin
   const calculateAverageTime = () => {
-    if (results.length === 0) return "0s";
-    // Si los resultados solo tienen un timestamp, no se puede calcular el tiempo real
-    // Se puede mostrar "No disponible" si no hay datos
-    return "No disponible";
+  if (results.length === 0) return "0s";
+  return "No disponible";
   };
 
   const toggleExpanded = (userId) => {
@@ -271,39 +268,54 @@ const strategies = [
                     {result.userName}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <div className="space-y-2">
-                      {Object.keys(result.responses)
-                        .sort((a, b) => parseInt(a) - parseInt(b))
-                        .map((questionId) => {
-                          const question = strategies.find(
-                            (q) => q.id === parseInt(questionId)
-                          );
-                          const answer = result.responses[questionId];
-                          return (
-                            <div
-                              key={questionId}
-                              className={`p-3 rounded-lg shadow-sm transition duration-300 ease-in-out bg-gray-50 border-l-4 ${
-                                answer === "no"
-                                  ? "border-red-400"
-                                  : "border-green-400"
-                              }`}
-                            >
-                              <p className="font-semibold text-gray-700">
-                                {questionId}. {question.text}
-                              </p>
-                              <div className="mt-1 flex justify-between items-center text-sm">
-                                <p className="text-gray-600">
-                                  Estrategia: <span className="font-bold capitalize">{question.category}</span>
-                                </p>
-                                <p className={`font-bold uppercase ${answer === "no" ? "text-red-700" : "text-green-700"}`}>
-                                  {answer}
-                                </p>
-                              </div>
-                            </div>
-                          );
-                        })}
-                    </div>
+                    {Object.keys(result.responses).length} de 12
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {Object.keys(result.categories_count)
+                      .map((key) => `${key}: ${result.categories_count[key]}`)
+                      .join(", ")}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button
+                      onClick={() => toggleExpanded(result.id)}
+                      className="text-indigo-600 hover:text-indigo-900"
+                    >
+                      {expandedUser === result.id
+                        ? "Ocultar"
+                        : "Ver Respuestas"}
+                    </button>
+                  </td>
+                </tr>
+                {expandedUser === result.id && (
+                  <tr>
+                    <td colSpan="4" className="bg-gray-50 p-4">
+                      <div className="space-y-3">
+                        {Object.keys(result.responses)
+                          .sort((a, b) => parseInt(a) - parseInt(b))
+                          .map((questionId) => {
+                            const question = strategies.find(
+                              (q) => q.id === parseInt(questionId)
+                            );
+                            const answer = result.responses[questionId];
+                            return (
+                              <div
+                                key={questionId}
+                                className={`p-3 rounded-lg shadow-sm transition duration-300 ease-in-out bg-gray-50 border-l-4 ${
+                                  answer === "no"
+                                    ? "border-red-400"
+                                    : "border-green-400"
+                                }`}
+                              >
+                                <div className="flex justify-between items-center mb-1">
+                                  <span className="font-bold text-gray-700">{questionId}. {question.category}</span>
+                                  <span className={`font-bold uppercase ${answer === "no" ? "text-red-700" : "text-green-700"}`}>{answer}</span>
+                                </div>
+                                <p className="text-gray-700 text-sm">{question.text}</p>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </td>
                   </tr>
                 )}
               </React.Fragment>

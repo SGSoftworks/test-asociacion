@@ -199,7 +199,9 @@ const TestForm = ({ userName }) => {
       <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl min-h-[32rem]">
                {" "}
         <div className="flex flex-col gap-2 mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 text-center">Hola, {userName}</h1>
+          <h1 className="text-3xl font-bold text-gray-800 text-center">
+            Hola, {userName}
+          </h1>
           <div className="flex justify-center">
             <Timer duration={15 * 60} onTimeout={handleTimeout} />
           </div>

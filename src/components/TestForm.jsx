@@ -88,6 +88,7 @@ const TestForm = ({ userName }) => {
   const [responses, setResponses] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Nuevo estado
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -127,6 +128,8 @@ const TestForm = ({ userName }) => {
   };
 
   const handleSubmit = async () => {
+    if (isSubmitting) return; // Evita envío múltiple
+    setIsSubmitting(true);
     const uniqueCode = generateUniqueCode();
     const userResults = {
       userName,
@@ -142,6 +145,7 @@ const TestForm = ({ userName }) => {
       navigate("/results", { state: { userResults, uniqueCode } });
     } catch (e) {
       console.error("Error al guardar los datos: ", e);
+      setIsSubmitting(false);
     }
   };
 
@@ -163,20 +167,24 @@ const TestForm = ({ userName }) => {
     }
   };
 
+  // Animación uniforme para las respuestas
   const variants = {
     enter: (direction) => ({
-      x: direction > 0 ? 1000 : -1000,
+      x: direction > 0 ? 100 : -100,
       opacity: 0,
+      scale: 0.95,
     }),
     center: {
       x: 0,
       opacity: 1,
-      transition: { duration: 0.5 },
+      scale: 1,
+      transition: { duration: 0.3 },
     },
     exit: (direction) => ({
-      x: direction < 0 ? 1000 : -1000,
+      x: direction < 0 ? 100 : -100,
       opacity: 0,
-      transition: { duration: 0.5 },
+      scale: 0.95,
+      transition: { duration: 0.3 },
     }),
   };
 
@@ -187,17 +195,25 @@ const TestForm = ({ userName }) => {
   if (shuffledQuestions.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-                <p className="text-xl text-gray-600">Cargando preguntas...</p> 
-             {" "}
+        <p className="text-xl text-gray-600">Cargando preguntas...</p>
       </div>
     );
   }
 
+  // Confirmación antes de finalizar
+  const handleFinishClick = () => {
+    if (
+      window.confirm(
+        "¿Deseas finalizar el test y ver tus resultados? Si quieres corregir alguna respuesta, presiona Cancelar."
+      )
+    ) {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-8 flex flex-col items-center justify-center">
-           {" "}
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl min-h-[32rem]">
-               {" "}
+      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl min-h-[36rem] flex flex-col justify-between">
         <div className="flex flex-col gap-2 mb-6">
           <h1 className="text-3xl font-bold text-gray-800 text-center">
             Hola, {userName}
@@ -209,7 +225,7 @@ const TestForm = ({ userName }) => {
             Pregunta {currentQuestionIndex + 1} de {shuffledQuestions.length}
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center w-full min-h-[16rem] sm:min-h-[18rem] md:min-h-[20rem] mb-4">
+        <div className="flex flex-col items-center justify-center w-full min-h-[18rem] sm:min-h-[20rem] md:min-h-[22rem] mb-4">
           <div className="w-full">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
@@ -235,15 +251,15 @@ const TestForm = ({ userName }) => {
         <div className="w-full bg-gray-100 rounded-lg py-4 px-2 flex flex-col sm:flex-row justify-between items-center gap-2 mt-2">
           <button
             onClick={handlePrev}
-            disabled={currentQuestionIndex === 0}
+            disabled={currentQuestionIndex === 0 || isSubmitting}
             className="bg-gray-400 text-white py-2 px-6 rounded-full disabled:bg-gray-300 transition duration-300 font-semibold shadow hover:bg-gray-500 w-full sm:w-auto"
           >
             Anterior
           </button>
           {isLastQuestion ? (
             <button
-              onClick={handleSubmit}
-              disabled={!isCurrentQuestionAnswered}
+              onClick={handleFinishClick}
+              disabled={!isCurrentQuestionAnswered || isSubmitting}
               className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 font-semibold shadow w-full sm:w-auto"
             >
               Finalizar Test
@@ -251,16 +267,14 @@ const TestForm = ({ userName }) => {
           ) : (
             <button
               onClick={handleNext}
-              disabled={!isCurrentQuestionAnswered}
+              disabled={!isCurrentQuestionAnswered || isSubmitting}
               className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 font-semibold shadow w-full sm:w-auto"
             >
               Siguiente
             </button>
           )}
         </div>
-             {" "}
       </div>
-         {" "}
     </div>
   );
 };

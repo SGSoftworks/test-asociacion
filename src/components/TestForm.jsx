@@ -15,22 +15,22 @@ const strategies = [
   {
     id: 2,
     text: "Cuando siento enojo o rabia, tomo una respiración profunda antes de actuar.",
-    category: "redireccionamiento",
+    category: "respiracion",
   },
   {
     id: 3,
     text: "Logro anticipar situaciones que me pueden generar emociones desagradables y tomo acciones para evitar que estas emociones escalen.",
-    category: "redireccionamiento",
+    category: "distraccion",
   },
   {
     id: 4,
     text: "Cuando algo me causa malestar, busco una actividad para distraerme: ver películas, comer algo dulce u otras.",
-    category: "respiracion",
+    category: "anticipacion",
   },
   {
     id: 5,
     text: "Cuando siento frustración, busco comprender cuáles son los obstáculos que me están impidiendo lograr mi objetivo.",
-    category: "respiracion",
+    category: "redireccionamiento",
   },
   {
     id: 6,
@@ -45,22 +45,22 @@ const strategies = [
   {
     id: 8,
     text: "Evito ciertas situaciones de las cuales tengo certeza que me pueden generar malestar.",
-    category: "distraccion",
+    category: "anticipacion",
   },
   {
     id: 9,
     text: "Cuando una situación me causa mucha alegría o satisfacción, comprendo qué factores incidieron en el resultado de esto, para replicarlos.",
-    category: "distraccion",
+    category: "redireccionamiento",
   },
   {
     id: 10,
     text: "Realizo prácticas de meditación para transformar mis emociones.",
-    category: "anticipacion",
+    category: "respiracion",
   },
   {
     id: 11,
     text: "Sé qué hacer para no exasperarme cuando hay situaciones que me pueden generar malestar.",
-    category: "anticipacion",
+    category: "distraccion",
   },
   {
     id: 12,
@@ -112,7 +112,7 @@ const TestForm = ({ userName }) => {
       const questionId = parseInt(id);
       const question = strategies.find((q) => q.id === questionId);
 
-      if (question && responses[id] === "si") {
+      if (question && responses[id] === "no") {
         categories_count[question.category]++;
       }
     });

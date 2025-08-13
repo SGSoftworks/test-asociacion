@@ -196,7 +196,7 @@ const TestForm = ({ userName }) => {
   return (
     <div className="min-h-screen bg-gray-100 p-8 flex flex-col items-center justify-center">
            {" "}
-  <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl min-h-[32rem]">
+      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl min-h-[100rem]">
                {" "}
         <div className="flex justify-between items-center mb-6">
                    {" "}

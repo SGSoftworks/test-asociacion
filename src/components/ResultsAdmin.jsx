@@ -16,80 +16,68 @@ const ResultsAdmin = () => {
   const navigate = useNavigate(); // Inicializa el hook de navegación
   const auth = getAuth(); // Obtiene la instancia de auth
 
-  const strategies = [
-    {
-      id: 1,
-      text: "Cuando una persona se enoja conmigo, busco entender las razones por las que está enojada.",
-      category: "redireccionamiento",
-      correct: "si",
-    },
-    {
-      id: 2,
-      text: "Cuando siento enojo o rabia, tomo una respiración profunda antes de actuar.",
-      category: "respiracion",
-      correct: "si",
-    },
-    {
-      id: 3,
-      text: "Logro anticipar situaciones que me pueden generar emociones desagradables y tomo acciones para evitar que estas emociones escalen.",
-      category: "distraccion",
-      correct: "si",
-    },
-    {
-      id: 4,
-      text: "Cuando algo me causa malestar, busco una actividad para distraerme: ver películas, comer algo dulce u otras.",
-      category: "distraccion",
-      correct: "si",
-    },
-    {
-      id: 5,
-      text: "Cuando siento frustración, busco comprender cuáles son los obstáculos que me están impidiendo lograr mi objetivo.",
-      category: "redireccionamiento",
-      correct: "si",
-    },
-    {
-      id: 6,
-      text: "Hago ejercicios de respiración recurrentes para encontrar la calma.",
-      category: "respiracion",
-      correct: "si",
-    },
-    {
-      id: 7,
-      text: "Si una situación me genera estrés, la suspendo y prefiero hacer otra cosa.",
-      category: "distraccion",
-      correct: "si",
-    },
-    {
-      id: 8,
-      text: "Evito ciertas situaciones de las cuales tengo certeza que me pueden generar malestar.",
-      category: "anticipacion",
-      correct: "si",
-    },
-    {
-      id: 9,
-      text: "Cuando una situación me causa mucha alegría o satisfacción, comprendo qué factores incidieron en el resultado de esto, para replicarlos.",
-      category: "redireccionamiento",
-      correct: "si",
-    },
-    {
-      id: 10,
-      text: "Realizo prácticas de meditación para transformar mis emociones.",
-      category: "respiracion",
-      correct: "si",
-    },
-    {
-      id: 11,
-      text: "Sé qué hacer para no exasperarme cuando hay situaciones que me pueden generar malestar.",
-      category: "distraccion",
-      correct: "si",
-    },
-    {
-      id: 12,
-      text: "Cuando algo me molesta, prefiero quedarme callado/a.",
-      category: "anticipacion",
-      correct: "no",
-    },
-  ];
+const strategies = [
+  {
+    id: 1,
+    text: "Cuando una persona se enoja conmigo, busco entender las razones por las que está enojada.",
+    category: "redireccionamiento",
+  },
+  {
+    id: 2,
+    text: "Cuando siento enojo o rabia, tomo una respiración profunda antes de actuar.",
+    category: "redireccionamiento",
+  },
+  {
+    id: 3,
+    text: "Logro anticipar situaciones que me pueden generar emociones desagradables y tomo acciones para evitar que estas emociones escalen.",
+    category: "redireccionamiento",
+  },
+  {
+    id: 4,
+    text: "Cuando algo me causa malestar, busco una actividad para distraerme: ver películas, comer algo dulce u otras.",
+    category: "respiracion",
+  },
+  {
+    id: 5,
+    text: "Cuando siento frustración, busco comprender cuáles son los obstáculos que me están impidiendo lograr mi objetivo.",
+    category: "respiracion",
+  },
+  {
+    id: 6,
+    text: "Hago ejercicios de respiración recurrentes para encontrar la calma.",
+    category: "respiracion",
+  },
+  {
+    id: 7,
+    text: "Si una situación me genera estrés, la suspendo y prefiero hacer otra cosa.",
+    category: "distraccion",
+  },
+  {
+    id: 8,
+    text: "Evito ciertas situaciones de las cuales tengo certeza que me pueden generar malestar.",
+    category: "distraccion",
+  },
+  {
+    id: 9,
+    text: "Cuando una situación me causa mucha alegría o satisfacción, comprendo qué factores incidieron en el resultado de esto, para replicarlos.",
+    category: "distraccion",
+  },
+  {
+    id: 10,
+    text: "Realizo prácticas de meditación para transformar mis emociones.",
+    category: "anticipacion",
+  },
+  {
+    id: 11,
+    text: "Sé qué hacer para no exasperarme cuando hay situaciones que me pueden generar malestar.",
+    category: "anticipacion",
+  },
+  {
+    id: 12,
+    text: "Cuando algo me molesta, prefiero quedarme callado/a.",
+    category: "anticipacion",
+  },
+];
 
   const categories = [
     "all",

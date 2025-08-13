@@ -14,25 +14,25 @@ const ResultsUser = ({ userResults }) => {
     {
       id: 2,
       text: "Cuando siento enojo o rabia, tomo una respiración profunda antes de actuar.",
-      category: "respiracion",
+      category: "redireccionamiento",
       correct: "si",
     },
     {
       id: 3,
       text: "Logro anticipar situaciones que me pueden generar emociones desagradables y tomo acciones para evitar que estas emociones escalen.",
-      category: "distraccion",
+      category: "redireccionamiento",
       correct: "si",
     },
     {
       id: 4,
       text: "Cuando algo me causa malestar, busco una actividad para distraerme: ver películas, comer algo dulce u otras.",
-      category: "distraccion",
+      category: "respiracion",
       correct: "si",
     },
     {
       id: 5,
       text: "Cuando siento frustración, busco comprender cuáles son los obstáculos que me están impidiendo lograr mi objetivo.",
-      category: "redireccionamiento",
+      category: "respiracion",
       correct: "si",
     },
     {
@@ -50,32 +50,32 @@ const ResultsUser = ({ userResults }) => {
     {
       id: 8,
       text: "Evito ciertas situaciones de las cuales tengo certeza que me pueden generar malestar.",
-      category: "anticipacion",
+      category: "distraccion",
       correct: "si",
     },
     {
       id: 9,
       text: "Cuando una situación me causa mucha alegría o satisfacción, comprendo qué factores incidieron en el resultado de esto, para replicarlos.",
-      category: "redireccionamiento",
+      category: "distraccion",
       correct: "si",
     },
     {
       id: 10,
       text: "Realizo prácticas de meditación para transformar mis emociones.",
-      category: "respiracion",
+      category: "anticipacion",
       correct: "si",
     },
     {
       id: 11,
       text: "Sé qué hacer para no exasperarme cuando hay situaciones que me pueden generar malestar.",
-      category: "distraccion",
+      category: "anticipacion",
       correct: "si",
     },
     {
       id: 12,
       text: "Cuando algo me molesta, prefiero quedarme callado/a.",
       category: "anticipacion",
-      correct: "no", // <-- La respuesta correcta para esta es 'no'.
+      correct: "si",
     },
   ];
 

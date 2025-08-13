@@ -1,32 +1,84 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Question from './Question';
-import Timer from './Timer';
-import { db } from '../firebase';
-import { addDoc, collection } from 'firebase/firestore';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Question from "./Question";
+import Timer from "./Timer";
+import { db } from "../firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { AnimatePresence, motion } from "framer-motion";
 
 const strategies = [
-  { id: 1, text: "Cuando una persona se enoja conmigo, busco entender las razones por las que está enojada.", category: "redireccionamiento" },
-  { id: 2, text: "Cuando siento enojo o rabia, tomo una respiración profunda antes de actuar.", category: "respiracion" },
-  { id: 3, text: "Logro anticipar situaciones que me pueden generar emociones desagradables y tomo acciones para evitar que estas emociones escalen.", category: "distraccion" },
-  { id: 4, text: "Cuando algo me causa malestar, busco una actividad para distraerme: ver películas, comer algo dulce u otras.", category: "distraccion" },
-  { id: 5, text: "Cuando siento frustración, busco comprender cuáles son los obstáculos que me están impidiendo lograr mi objetivo.", category: "redireccionamiento" },
-  { id: 6, text: "Hago ejercicios de respiración recurrentes para encontrar la calma.", category: "respiracion" },
-  { id: 7, text: "Si una situación me genera estrés, la suspendo y prefiero hacer otra cosa.", category: "distraccion" },
-  { id: 8, text: "Evito ciertas situaciones de las cuales tengo certeza que me pueden generar malestar.", category: "anticipacion" },
-  { id: 9, text: "Cuando una situación me causa mucha alegría o satisfacción, comprendo qué factores incidieron en el resultado de esto, para replicarlos.", category: "redireccionamiento" },
-  { id: 10, text: "Realizo prácticas de meditación para transformar mis emociones.", category: "respiracion" },
-  { id: 11, text: "Sé qué hacer para no exasperarme cuando hay situaciones que me pueden generar malestar.", category: "distraccion" },
-  { id: 12, text: "Cuando algo me molesta, prefiero quedarme callado/a.", category: "anticipacion" }
+  {
+    id: 1,
+    text: "Cuando una persona se enoja conmigo, busco entender las razones por las que está enojada.",
+    category: "redireccionamiento",
+  },
+  {
+    id: 2,
+    text: "Cuando siento enojo o rabia, tomo una respiración profunda antes de actuar.",
+    category: "redireccionamiento",
+  },
+  {
+    id: 3,
+    text: "Logro anticipar situaciones que me pueden generar emociones desagradables y tomo acciones para evitar que estas emociones escalen.",
+    category: "redireccionamiento",
+  },
+  {
+    id: 4,
+    text: "Cuando algo me causa malestar, busco una actividad para distraerme: ver películas, comer algo dulce u otras.",
+    category: "respiracion",
+  },
+  {
+    id: 5,
+    text: "Cuando siento frustración, busco comprender cuáles son los obstáculos que me están impidiendo lograr mi objetivo.",
+    category: "respiracion",
+  },
+  {
+    id: 6,
+    text: "Hago ejercicios de respiración recurrentes para encontrar la calma.",
+    category: "respiracion",
+  },
+  {
+    id: 7,
+    text: "Si una situación me genera estrés, la suspendo y prefiero hacer otra cosa.",
+    category: "distraccion",
+  },
+  {
+    id: 8,
+    text: "Evito ciertas situaciones de las cuales tengo certeza que me pueden generar malestar.",
+    category: "distraccion",
+  },
+  {
+    id: 9,
+    text: "Cuando una situación me causa mucha alegría o satisfacción, comprendo qué factores incidieron en el resultado de esto, para replicarlos.",
+    category: "distraccion",
+  },
+  {
+    id: 10,
+    text: "Realizo prácticas de meditación para transformar mis emociones.",
+    category: "anticipacion",
+  },
+  {
+    id: 11,
+    text: "Sé qué hacer para no exasperarme cuando hay situaciones que me pueden generar malestar.",
+    category: "anticipacion",
+  },
+  {
+    id: 12,
+    text: "Cuando algo me molesta, prefiero quedarme callado/a.",
+    category: "anticipacion",
+  },
 ];
 
 const shuffleArray = (array) => {
-  let currentIndex = array.length, randomIndex;
+  let currentIndex = array.length,
+    randomIndex;
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
   }
   return array;
 };
@@ -43,9 +95,9 @@ const TestForm = ({ userName }) => {
   }, []);
 
   const handleAnswer = (questionId, answer) => {
-    setResponses(prev => ({
+    setResponses((prev) => ({
       ...prev,
-      [questionId]: answer
+      [questionId]: answer,
     }));
   };
 
@@ -56,27 +108,22 @@ const TestForm = ({ userName }) => {
       distraccion: 0,
       anticipacion: 0,
     };
-    Object.keys(responses).forEach(id => {
+    Object.keys(responses).forEach((id) => {
       const questionId = parseInt(id);
-      const question = strategies.find(q => q.id === questionId);
+      const question = strategies.find((q) => q.id === questionId);
 
-      if (question) {
-        if (questionId === 12) {
-          if (responses[id] === 'no') {
-            categories_count[question.category]++;
-          }
-        } else {
-          if (responses[id] === 'si') {
-            categories_count[question.category]++;
-          }
-        }
+      if (question && responses[id] === "si") {
+        categories_count[question.category]++;
       }
     });
     return categories_count;
   };
 
   const generateUniqueCode = () => {
-    return new Date().getTime().toString(36).substr(0, 5).toUpperCase() + Math.random().toString(36).substr(2, 4).toUpperCase();
+    return (
+      new Date().getTime().toString(36).substr(0, 5).toUpperCase() +
+      Math.random().toString(36).substr(2, 4).toUpperCase()
+    );
   };
 
   const handleSubmit = async () => {
@@ -92,7 +139,7 @@ const TestForm = ({ userName }) => {
     try {
       await addDoc(collection(db, "tests_results"), userResults);
       console.log("Datos guardados con éxito en Firebase.");
-      navigate('/results', { state: { userResults, uniqueCode } });
+      navigate("/results", { state: { userResults, uniqueCode } });
     } catch (e) {
       console.error("Error al guardar los datos: ", e);
     }
@@ -105,14 +152,14 @@ const TestForm = ({ userName }) => {
   const handleNext = () => {
     if (currentQuestionIndex < shuffledQuestions.length - 1) {
       setDirection(1);
-      setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     }
   };
 
   const handlePrev = () => {
     if (currentQuestionIndex > 0) {
       setDirection(-1);
-      setCurrentQuestionIndex(prevIndex => prevIndex - 1);
+      setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
     }
   };
 
@@ -124,41 +171,49 @@ const TestForm = ({ userName }) => {
     center: {
       x: 0,
       opacity: 1,
-      transition: { duration: 0.5 }
+      transition: { duration: 0.5 },
     },
     exit: (direction) => ({
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
-      transition: { duration: 0.5 }
-    })
+      transition: { duration: 0.5 },
+    }),
   };
 
-  const isCurrentQuestionAnswered = responses[shuffledQuestions[currentQuestionIndex]?.id] !== undefined;
+  const isCurrentQuestionAnswered =
+    responses[shuffledQuestions[currentQuestionIndex]?.id] !== undefined;
   const isLastQuestion = currentQuestionIndex === shuffledQuestions.length - 1;
 
   if (shuffledQuestions.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <p className="text-xl text-gray-600">Cargando preguntas...</p>
+                <p className="text-xl text-gray-600">Cargando preguntas...</p> 
+             {" "}
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-gray-100 p-8 flex flex-col items-center justify-center">
+           {" "}
       <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
+               {" "}
         <div className="flex justify-between items-center mb-6">
+                   {" "}
           <h1 className="text-3xl font-bold text-gray-800">Hola, {userName}</h1>
-          <Timer duration={15 * 60} onTimeout={handleTimeout} />
+                    <Timer duration={15 * 60} onTimeout={handleTimeout} />     
+           {" "}
         </div>
-        
-        {/* Nuevo contador de preguntas */}
+                       {" "}
         <div className="text-center text-lg text-gray-600 mb-6 font-medium">
-          {currentQuestionIndex + 1} de {shuffledQuestions.length}
+                    {currentQuestionIndex + 1} de {shuffledQuestions.length}   
+             {" "}
         </div>
-        
+                       {" "}
         <div className="h-48 relative overflow-hidden flex items-center justify-center">
+                   {" "}
           <AnimatePresence initial={false} custom={direction}>
+                       {" "}
             <motion.div
               key={currentQuestionIndex}
               custom={direction}
@@ -168,29 +223,38 @@ const TestForm = ({ userName }) => {
               exit="exit"
               className="absolute w-full"
             >
+                           {" "}
               <Question
                 question={shuffledQuestions[currentQuestionIndex]}
                 onAnswer={handleAnswer}
-                selectedAnswer={responses[shuffledQuestions[currentQuestionIndex]?.id]}
+                selectedAnswer={
+                  responses[shuffledQuestions[currentQuestionIndex]?.id]
+                }
               />
+                         {" "}
             </motion.div>
+                     {" "}
           </AnimatePresence>
+                 {" "}
         </div>
+               {" "}
         <div className="flex justify-between mt-8">
+                   {" "}
           <button
             onClick={handlePrev}
             disabled={currentQuestionIndex === 0}
             className="bg-gray-500 text-white py-2 px-6 rounded-full disabled:bg-gray-300 transition duration-300"
           >
-            Anterior
+                        Anterior          {" "}
           </button>
+                   {" "}
           {isLastQuestion ? (
             <button
               onClick={handleSubmit}
               disabled={!isCurrentQuestionAnswered}
               className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400"
             >
-              Finalizar Test
+                            Finalizar Test            {" "}
             </button>
           ) : (
             <button
@@ -198,11 +262,14 @@ const TestForm = ({ userName }) => {
               disabled={!isCurrentQuestionAnswered}
               className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400"
             >
-              Siguiente
+                            Siguiente            {" "}
             </button>
           )}
+                 {" "}
         </div>
+             {" "}
       </div>
+         {" "}
     </div>
   );
 };

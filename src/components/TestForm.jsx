@@ -84,6 +84,16 @@ const shuffleArray = (array) => {
 };
 
 const TestForm = ({ userName }) => {
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [responses, setResponses] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

@@ -1,20 +1,29 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
-const InitialScreen = () => {
-  const [userName, setUserName] = useState("");
-  const navigate = useNavigate();
-
-  const handleStartTest = (e) => {
-    e.preventDefault();
-    if (userName.trim() !== "") {
-      navigate("/test", { state: { userName } });
-    }
-  };
-
+const InitialScreen = ({ onClose }) => {
   return (
-    <div className="min-h-screen bg-gray-100 p-8 flex flex-col items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
+    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+      <div className="relative bg-white p-8 rounded-lg shadow-xl w-full max-w-lg mx-4">
+        {/* Botón de cerrar */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
         <h1 className="text-3xl font-bold text-indigo-600 text-center mb-6">
           Bienvenido al Test de Gestión Emocional
         </h1>
@@ -47,7 +56,7 @@ const InitialScreen = () => {
           <ul className="list-disc list-inside text-gray-700 space-y-2">
             <li>
               <span className="font-semibold">Ingresa tu nombre:</span> Escribe
-              tu nombre para empezar el test.
+              tu nombre en la página principal para empezar el test.
             </li>
             <li>
               <span className="font-semibold">Responde con sinceridad:</span>{" "}
@@ -56,8 +65,7 @@ const InitialScreen = () => {
             </li>
             <li>
               <span className="font-semibold">Sin límite de tiempo:</span>{" "}
-              Tienes 15 minutos para responder todas las preguntas. No te
-              preocupes, puedes volver a la pregunta anterior si lo necesitas.
+              Tienes 15 minutos para responder todas las preguntas.
             </li>
             <li>
               <span className="font-semibold">Guarda tus resultados:</span> Al
@@ -67,30 +75,13 @@ const InitialScreen = () => {
           </ul>
         </div>
 
-        {/* Formulario para iniciar el test */}
-        <form onSubmit={handleStartTest} className="mt-8">
-          <label
-            htmlFor="userName"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Tu nombre:
-          </label>
-          <input
-            type="text"
-            id="userName"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
-          />
-          <button
-            type="submit"
-            className="w-full mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400"
-            disabled={userName.trim() === ""}
-          >
-            Comenzar Test
-          </button>
-        </form>
+        {/* Botón para cerrar la ventana modal */}
+        <button
+          onClick={onClose}
+          className="w-full mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-700 transition duration-300 font-bold"
+        >
+          Entendido, cerrar
+        </button>
       </div>
     </div>
   );

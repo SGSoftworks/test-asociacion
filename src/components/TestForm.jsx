@@ -92,6 +92,17 @@ const TestForm = ({ userName }) => {
 
   useEffect(() => {
     setShuffledQuestions(shuffleArray([...strategies]));
+
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, []);
 
   const handleAnswer = (questionId, answer) => {
@@ -188,19 +199,21 @@ const TestForm = ({ userName }) => {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
                 <p className="text-xl text-gray-600">Cargando preguntas...</p> 
-             {" "}
+           {" "}
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-8 flex flex-col items-center justify-center">
            {" "}
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
+      <div className="bg-white p-6 sm:p-8 rounded-lg shadow-xl w-full max-w-2xl">
                {" "}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 text-center sm:text-left">
                    {" "}
-          <h1 className="text-3xl font-bold text-gray-800">Hola, {userName}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2 sm:mb-0">
+            Hola, {userName}
+          </h1>
                     <Timer duration={15 * 60} onTimeout={handleTimeout} />     
            {" "}
         </div>
@@ -210,7 +223,7 @@ const TestForm = ({ userName }) => {
              {" "}
         </div>
                        {" "}
-        <div className="h-48 relative overflow-hidden flex items-center justify-center">
+        <div className="relative overflow-hidden flex items-center justify-center min-h-[12rem]">
                    {" "}
           <AnimatePresence initial={false} custom={direction}>
                        {" "}
@@ -237,13 +250,13 @@ const TestForm = ({ userName }) => {
           </AnimatePresence>
                  {" "}
         </div>
-               {" "}
+                       {" "}
         <div className="flex justify-between mt-8">
                    {" "}
           <button
             onClick={handlePrev}
             disabled={currentQuestionIndex === 0}
-            className="bg-gray-500 text-white py-2 px-6 rounded-full disabled:bg-gray-300 transition duration-300"
+            className="bg-gray-500 text-white py-2 px-6 rounded-full disabled:bg-gray-300 transition duration-300 flex-1 mx-1"
           >
                         Anterior          {" "}
           </button>
@@ -252,7 +265,7 @@ const TestForm = ({ userName }) => {
             <button
               onClick={handleSubmit}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400"
+              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 flex-1 mx-1"
             >
                             Finalizar Test            {" "}
             </button>
@@ -260,7 +273,7 @@ const TestForm = ({ userName }) => {
             <button
               onClick={handleNext}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400"
+              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 flex-1 mx-1"
             >
                             Siguiente            {" "}
             </button>

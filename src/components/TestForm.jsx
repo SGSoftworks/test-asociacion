@@ -256,7 +256,7 @@ const TestForm = ({ userName }) => {
           <button
             onClick={handlePrev}
             disabled={currentQuestionIndex === 0}
-            className="bg-gray-500 text-white py-2 px-6 rounded-full disabled:bg-gray-300 transition duration-300 flex-1 mx-1"
+            className="bg-gray-500 text-white py-2 px-6 rounded-full disabled:bg-gray-300 transition duration-300 text-center"
           >
                         Anterior          {" "}
           </button>
@@ -265,7 +265,7 @@ const TestForm = ({ userName }) => {
             <button
               onClick={handleSubmit}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 flex-1 mx-1"
+              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 text-center"
             >
                             Finalizar Test            {" "}
             </button>
@@ -273,7 +273,7 @@ const TestForm = ({ userName }) => {
             <button
               onClick={handleNext}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 flex-1 mx-1"
+              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 text-center"
             >
                             Siguiente            {" "}
             </button>

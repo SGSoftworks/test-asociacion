@@ -194,26 +194,21 @@ const TestForm = ({ userName }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8 flex flex-col items-center justify-center">
-           {" "}
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
-               {" "}
-        <div className="flex justify-between items-center mb-6">
-                   {" "}
-          <h1 className="text-3xl font-bold text-gray-800">Hola, {userName}</h1>
-                    <Timer duration={15 * 60} onTimeout={handleTimeout} />     
-           {" "}
+    <div className="min-h-screen bg-gray-100 p-2 sm:p-4 md:p-8 flex flex-col items-center justify-center">
+      {/* Contenedor principal responsivo */}
+      <div className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-xl w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+        {/* Header y timer */}
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-6 gap-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center sm:text-left">Hola, {userName}</h1>
+          <Timer duration={15 * 60} onTimeout={handleTimeout} />
         </div>
-                       {" "}
-        <div className="text-center text-lg text-gray-600 mb-6 font-medium">
-                    {currentQuestionIndex + 1} de {shuffledQuestions.length}   
-             {" "}
+        {/* Progreso */}
+        <div className="text-center text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 font-medium">
+          {currentQuestionIndex + 1} de {shuffledQuestions.length}
         </div>
-                       {" "}
-        <div className="relative overflow-hidden flex items-center justify-center min-h-[12rem]">
-                   {" "}
+        {/* Área de la pregunta, responsiva y con scroll si es necesario */}
+        <div className="relative flex items-center justify-center min-h-[8rem] sm:min-h-[10rem] md:min-h-[12rem] w-full overflow-y-auto">
           <AnimatePresence initial={false} custom={direction}>
-                       {" "}
             <motion.div
               key={currentQuestionIndex}
               custom={direction}
@@ -221,9 +216,8 @@ const TestForm = ({ userName }) => {
               initial="enter"
               animate="center"
               exit="exit"
-              className="absolute w-full"
+              className="absolute w-full px-2 sm:px-4"
             >
-                           {" "}
               <Question
                 question={shuffledQuestions[currentQuestionIndex]}
                 onAnswer={handleAnswer}
@@ -231,45 +225,37 @@ const TestForm = ({ userName }) => {
                   responses[shuffledQuestions[currentQuestionIndex]?.id]
                 }
               />
-                         {" "}
             </motion.div>
-                     {" "}
           </AnimatePresence>
-                 {" "}
         </div>
-               {" "}
-        <div className="flex justify-between mt-8">
-                   {" "}
+        {/* Botones de navegación, responsivos */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-2 mt-6 sm:mt-8 w-full">
           <button
             onClick={handlePrev}
             disabled={currentQuestionIndex === 0}
-            className="bg-gray-500 text-white py-2 px-6 rounded-full disabled:bg-gray-300 transition duration-300"
+            className="bg-gray-500 text-white py-2 px-4 sm:px-6 rounded-full disabled:bg-gray-300 transition duration-300 w-full sm:w-auto"
           >
-                        Anterior          {" "}
+            Anterior
           </button>
-                   {" "}
           {isLastQuestion ? (
             <button
               onClick={handleSubmit}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400"
+              className="bg-indigo-600 text-white py-2 px-4 sm:px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 w-full sm:w-auto"
             >
-                            Finalizar Test            {" "}
+              Finalizar Test
             </button>
           ) : (
             <button
               onClick={handleNext}
               disabled={!isCurrentQuestionAnswered}
-              className="bg-indigo-600 text-white py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400"
+              className="bg-indigo-600 text-white py-2 px-4 sm:px-6 rounded-full hover:bg-indigo-700 transition duration-300 disabled:bg-gray-400 w-full sm:w-auto"
             >
-                            Siguiente            {" "}
+              Siguiente
             </button>
           )}
-                 {" "}
         </div>
-             {" "}
       </div>
-         {" "}
     </div>
   );
 };

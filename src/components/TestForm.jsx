@@ -210,7 +210,7 @@ const TestForm = ({ userName }) => {
              {" "}
         </div>
                        {" "}
-        <div className="relative overflow-hidden flex items-center justify-center ">
+        <div className="relative overflow-hidden flex items-center justify-center min-h-[12rem]">
                    {" "}
           <AnimatePresence initial={false} custom={direction}>
                        {" "}

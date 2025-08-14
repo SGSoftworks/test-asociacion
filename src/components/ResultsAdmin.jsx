@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase"; // Asume que tienes un archivo firebase.js
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, updateDoc, doc } from "firebase/firestore";
 import { getAuth, signOut } from "firebase/auth"; // Importa la función de signOut
 import { useNavigate } from "react-router-dom"; // Importa useNavigate para la redirección
 import * as XLSX from "xlsx";
@@ -30,6 +30,25 @@ const ResultsAdmin = () => {
     XLSX.writeFile(wb, "resultados_test_estrategias.xlsx");
   };
   const [results, setResults] = useState([]);
+  const [deleting, setDeleting] = useState({ userId: null, questionId: null });
+  // Elimina solo una respuesta individual de un usuario
+  const handleDeleteResponse = async (userId, questionId) => {
+    if (!window.confirm("¿Seguro que deseas eliminar esta respuesta?")) return;
+    setDeleting({ userId, questionId });
+    try {
+      const userDocRef = doc(db, "tests_results", userId);
+      // Obtener el resto de respuestas del usuario
+      const user = results.find(r => r.id === userId);
+      if (!user) return;
+      const newResponses = { ...user.responses };
+      delete newResponses[questionId];
+      await updateDoc(userDocRef, { responses: newResponses });
+    } catch (err) {
+      alert("Error al eliminar la respuesta");
+      console.error(err);
+    }
+    setDeleting({ userId: null, questionId: null });
+  };
   const [expandedUser, setExpandedUser] = useState(null);
   const [generalStats, setGeneralStats] = useState({
     totalUsers: 0,
@@ -340,7 +359,7 @@ const ResultsAdmin = () => {
                                     : "border-green-400"
                                 }`}
                               >
-                                <div className="flex justify-between items-center mb-1">
+                                <div className="flex justify-between items-center mb-1 gap-2">
                                   <span className="font-bold text-gray-700">
                                     {questionId}. {question.category}
                                   </span>
@@ -353,6 +372,13 @@ const ResultsAdmin = () => {
                                   >
                                     {answer}
                                   </span>
+                                  <button
+                                    className="ml-2 px-2 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600 transition"
+                                    disabled={deleting.userId === result.id && deleting.questionId === questionId}
+                                    onClick={() => handleDeleteResponse(result.id, questionId)}
+                                  >
+                                    {deleting.userId === result.id && deleting.questionId === questionId ? "Eliminando..." : "Eliminar"}
+                                  </button>
                                 </div>
                                 <p className="text-gray-700 text-sm">
                                   {question.text}

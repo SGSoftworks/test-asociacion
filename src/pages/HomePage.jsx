@@ -159,7 +159,7 @@ const HomePage = () => {
           >
             Entendido, comenzar
           </button>
-          {!showModal && showInstructionBtn && (
+          {!showModal && (
             <motion.button
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

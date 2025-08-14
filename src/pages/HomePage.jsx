@@ -10,7 +10,10 @@ const HomePage = () => {
   const [userName, setUserName] = useState("");
   const [isTestStarted, setIsTestStarted] = useState(false);
   const [uniqueCode, setUniqueCode] = useState("");
-  const [showInstructionBtn, setShowInstructionBtn] = useState(false);
+  const [showInstructionBtn, setShowInstructionBtn] = useState(false); // Initialize state for instruction button
+  useEffect(() => {
+    setShowInstructionBtn(!showModal); // Show instruction button when modal is closed
+  }, [showModal]);
   const [lookupError, setLookupError] = useState("");
   const navigate = useNavigate();
 

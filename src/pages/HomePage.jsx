@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import TestForm from "../components/TestForm";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 const HomePage = () => {
+  const [showModal, setShowModal] = useState(true);
   const [userName, setUserName] = useState("");
   const [isTestStarted, setIsTestStarted] = useState(false);
   const [uniqueCode, setUniqueCode] = useState("");
@@ -42,6 +44,76 @@ const HomePage = () => {
 
   if (isTestStarted) {
     return <TestForm userName={userName} />;
+  }
+
+  // Modal de autopromoción, instrucciones y advertencias
+  if (showModal) {
+    return (
+      <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
+        <div className="relative bg-white p-6 sm:p-8 rounded-lg shadow-xl w-full max-w-lg mx-auto">
+          {/* Botón de cerrar */}
+          <button
+            onClick={() => setShowModal(false)}
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            aria-label="Cerrar"
+          >
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <h1 className="text-2xl sm:text-3xl font-bold text-indigo-600 text-center mb-4 sm:mb-6">
+            Bienvenido al Test de Estrategias Emocionales
+          </h1>
+
+          {/* Autopromoción */}
+          <div className="bg-blue-50 p-4 sm:p-6 rounded-lg mb-4 sm:mb-6 border-l-4 border-blue-400">
+            <h2 className="text-xl sm:text-2xl font-semibold text-blue-800 mb-2">
+              ¿Te gustaría una app similar para tu negocio?
+            </h2>
+            <p className="text-sm sm:text-base text-gray-700">
+              Este test es una app de <b>JG Softworks</b>. Creamos aplicaciones web y móviles personalizadas para empresas, instituciones y profesionales. Si necesitas una solución a medida, visita nuestra página:
+            </p>
+            <a
+              href="https://jgsoftworks-site.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-block text-blue-600 hover:text-blue-800 font-medium text-sm sm:text-base"
+            >
+              Ver más proyectos de JG Softworks →
+            </a>
+          </div>
+
+          {/* Instrucciones */}
+          <div className="mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3">Instrucciones</h2>
+            <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 space-y-2">
+              <li><span className="font-semibold">Ingresa tu nombre:</span> Escribe tu nombre en la página principal para comenzar el test.</li>
+              <li><span className="font-semibold">Responde con sinceridad:</span> Selecciona "Sí" o "No" según tu comportamiento habitual.</li>
+              <li><span className="font-semibold">Tiempo:</span> Tienes hasta 15 minutos para responder todas las preguntas.</li>
+              <li><span className="font-semibold">Visualización:</span> Puedes usar el test en modo vertical u horizontal, es completamente responsivo.</li>
+              <li><span className="font-semibold">Resultados:</span> Al finalizar, se generará un código único para consultar tus respuestas negativas (estrategias a mejorar) más adelante.</li>
+            </ul>
+          </div>
+
+          {/* Advertencias */}
+          <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400 mb-4">
+            <h2 className="text-lg font-bold text-yellow-800 mb-2">Advertencias</h2>
+            <ul className="list-disc list-inside text-sm sm:text-base text-yellow-700 space-y-1">
+              <li>Desactiva el traductor automático del navegador para evitar errores en el test.</li>
+              <li>El código generado solo sirve para volver a visualizar tus respuestas negativas.</li>
+            </ul>
+          </div>
+
+          <button
+            onClick={() => setShowModal(false)}
+            className="w-full mt-2 bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-700 transition duration-300 font-bold"
+          >
+            Entendido, comenzar
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (

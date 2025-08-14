@@ -11,7 +11,7 @@ const ResultsUser = ({ userResults }) => {
       category: "redireccionamiento",
       tip: "Concéntrate en lo que la otra persona dice, no en lo que vas a responder, intenta reconocer lo que siente, incluso si no estás de acuerdo con su punto de vista, Haz el ejercicio mental: '¿Cómo me sentiría yo si estuviera en su situación?'",
       meaning:
-        "Redireccionamiento: Capacidad de enfocar la atención en comprender y modificar la causa de una emoción, en vez de reaccionar impulsivamente.",
+        "El redireccionamiento te ayuda a comprender el origen de las emociones ajenas y a responder con empatía, evitando conflictos innecesarios.",
     },
     {
       id: 2,
@@ -19,7 +19,7 @@ const ResultsUser = ({ userResults }) => {
       category: "respiracion",
       tip: "'Realiza ejercicios de respiración consciente para calmarte antes de responder, toma el tiempo para reconocer la situación y vuelve al dialogo cuando estes listo (a)'",
       meaning:
-        "Respiración: Uso de técnicas de respiración para regular y transformar emociones intensas.",
+        "La respiración profunda es una herramienta clave para regular el enojo y evitar reacciones impulsivas que puedan empeorar la situación.",
     },
     {
       id: 3,
@@ -27,7 +27,7 @@ const ResultsUser = ({ userResults }) => {
       category: "distraccion",
       tip: "Conócete y detecta tus detonantes, El cuerpo suele avisar antes que la mente: tensión muscular, respiración rápida, sudoración, calor en la cara, detectarlas temprano te da tiempo para regularte, Si sabes que un lugar, horario o persona te afecta, busca opciones para reducir la exposición o modificar el contexto.",
       meaning:
-        "Distracción: Capacidad de anticipar y evitar situaciones que pueden generar emociones negativas.",
+        "La distracción te permite identificar y pausar situaciones antes de que las emociones negativas se intensifiquen, protegiendo tu bienestar.",
     },
     {
       id: 4,
@@ -35,7 +35,7 @@ const ResultsUser = ({ userResults }) => {
       category: "anticipacion",
       tip: "Busca actividades saludables que te ayuden a cambiar el foco de atención e intenta modificar los pensamientos negativos por positivos.",
       meaning:
-        "Anticipación: Buscar alternativas para distraerse y evitar que las emociones negativas dominen la situación.",
+        "La anticipación te ayuda a elegir actividades alternativas para manejar el malestar y evitar que las emociones negativas dominen tu día.",
     },
     {
       id: 5,
@@ -43,7 +43,7 @@ const ResultsUser = ({ userResults }) => {
       category: "redireccionamiento",
       tip: "Detecta los pensamientos asociados: frases como “Esto no es justo”, “No debería pasar”, “Nunca va a funcionar”, Identifica expectativas no cumplidas: gran parte de la frustración nace cuando la realidad no coincide con lo que esperabas, Revisa tu nivel de control: pregúntate “¿Esto depende de mí o no?”. Si no depende de ti, la estrategia es aceptar y ajustar.",
       meaning:
-        "Redireccionamiento: Capacidad de analizar y modificar el origen de la emoción para lograr el objetivo.",
+        "El redireccionamiento te permite analizar los obstáculos y ajustar tus expectativas para superar la frustración de manera constructiva.",
     },
     {
       id: 6,
@@ -51,7 +51,7 @@ const ResultsUser = ({ userResults }) => {
       category: "respiracion",
       tip: "Dedica unos minutos al día a ejercicios de respiración y relajación convierte estas técnicas en un hábito aplicar al final del día.",
       meaning:
-        "Respiración: Práctica regular de técnicas para mantener la calma y el equilibrio emocional.",
+        "La práctica regular de la respiración consciente favorece la calma y el equilibrio emocional en tu rutina diaria.",
     },
     {
       id: 7,
@@ -59,7 +59,7 @@ const ResultsUser = ({ userResults }) => {
       category: "distraccion",
       tip: "Permítete pausar y cambiar de actividad para evitar el estrés excesivo, cuando te calmas logras concentrarte y pensar mejor.",
       meaning:
-        "Distracción: Saber cuándo detenerse y cambiar de actividad para proteger el bienestar emocional.",
+        "La distracción te ayuda a reconocer cuándo es momento de detenerte y cambiar de actividad para evitar el estrés y recuperar tu bienestar.",
     },
     {
       id: 8,
@@ -67,7 +67,7 @@ const ResultsUser = ({ userResults }) => {
       category: "anticipacion",
       tip: "Conócete y detecta tus detonantes, Pregúntate: “¿Qué pasó antes, durante y después la última vez que me sentí así?”.Crea frases ancla o recordatorios mentales que te ayuden a mantener la calma: “Esto pasará”, “Puedo manejarlo”, “Respira y piensa”.",
       meaning:
-        "Anticipación: Capacidad de prever y evitar situaciones que pueden causar malestar.",
+        "La anticipación te permite identificar y evitar contextos que sabes que pueden afectar tu estado emocional, previniendo el malestar.",
     },
     {
       id: 9,
@@ -75,15 +75,15 @@ const ResultsUser = ({ userResults }) => {
       category: "redireccionamiento",
       tip: "Observa tus momentos de energía alta y sonrisa genuina, Identifica tus actividades “flujo” Son esas que te absorben tanto que pierdes la noción del tiempo (pintar, bailar, cocinar, conversar…), Son un gran indicador de lo que tu mente y corazón disfrutan.",
       meaning:
-        "Redireccionamiento: Analizar los factores que generan emociones positivas para repetirlos.",
+        "El redireccionamiento te ayuda a identificar los factores positivos para repetirlos y potenciar tus emociones agradables.",
     },
     {
       id: 10,
       text: "Realizo prácticas de meditación para transformar mis emociones.",
       category: "respiracion",
-      tip: " Incluye la meditación en tu rutina para transformar emociones negativas y así retomar el control de tu mente y cuerpo.",
+      tip: "Incluye la meditación en tu rutina para transformar emociones negativas y así retomar el control de tu mente y cuerpo.",
       meaning:
-        "Respiración: Uso de la meditación como herramienta para la gestión emocional.",
+        "La meditación es una técnica de respiración avanzada que te permite transformar emociones negativas y recuperar el control emocional.",
     },
     {
       id: 11,
@@ -91,7 +91,7 @@ const ResultsUser = ({ userResults }) => {
       category: "distraccion",
       tip: "Usa el “tiempo fuera” mental, Dite a ti mismo frases como: “No necesito responder ahora”, “Voy a esperar antes de actuar”, Evita el lenguaje hiriente, Detecta y cuestiona pensamientos extremos cambia “¡Todo está mal!” por “Esto me molesta, pero puedo buscar soluciones” Apártate unos minutos de la situación para evitar reacciones impulsivas..",
       meaning:
-        "Distracción: Tener recursos personales para evitar la exasperación en situaciones difíciles.",
+        "La distracción te brinda recursos para evitar la exasperación y mantener la calma en situaciones difíciles.",
     },
     {
       id: 12,
@@ -99,7 +99,7 @@ const ResultsUser = ({ userResults }) => {
       category: "anticipacion",
       tip: "Si la ira es intensa, haz una pausa antes de hablar. Incluso decir: 'Necesito unos minutos para calmarme y luego seguimos' ayuda a prevenir palabras impulsivas, Usa la respiración profunda, bebe agua o cambia de espacio antes de iniciar la conversación, Controla el tono de voz y el volumen, Escucha aunque estés molesto (a), deja que la otra persona explique su parte.",
       meaning:
-        "Anticipación: Decidir cuándo es mejor guardar silencio para evitar conflictos o malestar.",
+        "La anticipación te permite decidir cuándo es mejor guardar silencio para evitar conflictos y proteger tu tranquilidad.",
     },
   ];
 
@@ -137,7 +137,8 @@ const ResultsUser = ({ userResults }) => {
         </div>
       ) : (
         <p className="text-lg text-gray-700 mb-6">
-          No seleccionaste ninguna estrategia con respuesta "Negativa". ¡Sigue así!
+          No seleccionaste ninguna estrategia con respuesta "Negativa". ¡Sigue
+          así!
         </p>
       )}
     </div>

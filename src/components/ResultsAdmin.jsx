@@ -37,6 +37,8 @@ const ResultsAdmin = () => {
   };
   const [results, setResults] = useState([]);
   const [deletingUserId, setDeletingUserId] = useState(null);
+  // Estado para eliminar respuestas individuales
+  const [deleting, setDeleting] = useState({ userId: null, questionId: null });
   // Elimina el registro completo de un usuario
   const handleDeleteUser = async (userId) => {
     if (

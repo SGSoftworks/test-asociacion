@@ -2,6 +2,7 @@ import TestForm from "../components/TestForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
+import { motion } from "framer-motion";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 const HomePage = () => {
@@ -9,6 +10,7 @@ const HomePage = () => {
   const [userName, setUserName] = useState("");
   const [isTestStarted, setIsTestStarted] = useState(false);
   const [uniqueCode, setUniqueCode] = useState("");
+  const [showInstructionBtn, setShowInstructionBtn] = useState(false);
   const [lookupError, setLookupError] = useState("");
   const navigate = useNavigate();
 
@@ -150,6 +152,22 @@ const HomePage = () => {
           >
             Entendido, comenzar
           </button>
+          {!showModal && showInstructionBtn && (
+            <motion.button
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="fixed bottom-6 right-6 z-50 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2"
+              onClick={() => setShowModal(true)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z" />
+              </svg>
+              Instrucciones
+            </motion.button>
+          )}
         </div>
       </div>
     );

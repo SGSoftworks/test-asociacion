@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import TestForm from "../components/TestForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -57,8 +56,18 @@ const HomePage = () => {
             className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
             aria-label="Cerrar"
           >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
 
@@ -72,7 +81,10 @@ const HomePage = () => {
               ¿Te gustaría una app similar para tu negocio?
             </h2>
             <p className="text-sm sm:text-base text-gray-700">
-              Este test es una app de <b>JG Softworks</b>. Creamos aplicaciones web y móviles personalizadas para empresas, instituciones y profesionales. Si necesitas una solución a medida, visita nuestra página:
+              Este test es una app de <b>JG Softworks</b>. Creamos aplicaciones
+              web y móviles personalizadas para empresas, instituciones y
+              profesionales. Si necesitas una solución a medida, visita nuestra
+              página:
             </p>
             <a
               href="https://jgsoftworks-site.netlify.app/"
@@ -86,22 +98,49 @@ const HomePage = () => {
 
           {/* Instrucciones */}
           <div className="mb-4 sm:mb-6">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3">Instrucciones</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3">
+              Instrucciones
+            </h2>
             <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 space-y-2">
-              <li><span className="font-semibold">Ingresa tu nombre:</span> Escribe tu nombre en la página principal para comenzar el test.</li>
-              <li><span className="font-semibold">Responde con sinceridad:</span> Selecciona "Sí" o "No" según tu comportamiento habitual.</li>
-              <li><span className="font-semibold">Tiempo:</span> Tienes hasta 15 minutos para responder todas las preguntas.</li>
-              <li><span className="font-semibold">Visualización:</span> Puedes usar el test en modo vertical u horizontal, es completamente responsivo.</li>
-              <li><span className="font-semibold">Resultados:</span> Al finalizar, se generará un código único para consultar tus respuestas negativas (estrategias a mejorar) más adelante.</li>
+              <li>
+                <span className="font-semibold">Ingresa tu nombre:</span>{" "}
+                Escribe tu nombre en la página principal para comenzar el test.
+              </li>
+              <li>
+                <span className="font-semibold">Responde con sinceridad:</span>{" "}
+                Selecciona "Sí" o "No" según tu comportamiento habitual.
+              </li>
+              <li>
+                <span className="font-semibold">Tiempo:</span> Tienes hasta 15
+                minutos para responder todas las preguntas.
+              </li>
+              <li>
+                <span className="font-semibold">Visualización:</span> Puedes
+                usar el test en modo vertical u horizontal, es completamente
+                responsivo.
+              </li>
+              <li>
+                <span className="font-semibold">Resultados:</span> Al finalizar,
+                se generará un código único para consultar tus respuestas
+                negativas (estrategias a mejorar) más adelante.
+              </li>
             </ul>
           </div>
 
           {/* Advertencias */}
           <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400 mb-4">
-            <h2 className="text-lg font-bold text-yellow-800 mb-2">Advertencias</h2>
+            <h2 className="text-lg font-bold text-yellow-800 mb-2">
+              Advertencias
+            </h2>
             <ul className="list-disc list-inside text-sm sm:text-base text-yellow-700 space-y-1">
-              <li>Desactiva el traductor automático del navegador para evitar errores en el test.</li>
-              <li>El código generado solo sirve para volver a visualizar tus respuestas negativas.</li>
+              <li>
+                Desactiva el traductor automático del navegador para evitar
+                errores en el test.
+              </li>
+              <li>
+                El código generado solo sirve para volver a visualizar tus
+                respuestas negativas.
+              </li>
             </ul>
           </div>
 

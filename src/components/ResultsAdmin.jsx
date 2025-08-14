@@ -3,8 +3,28 @@ import { db } from "../firebase"; // Asume que tienes un archivo firebase.js
 import { collection, onSnapshot } from "firebase/firestore";
 import { getAuth, signOut } from "firebase/auth"; // Importa la función de signOut
 import { useNavigate } from "react-router-dom"; // Importa useNavigate para la redirección
+import * as XLSX from "xlsx";
 
 const ResultsAdmin = () => {
+  // Función para exportar datos relevantes a Excel
+  const handleExport = () => {
+    // Construir datos para exportar
+    const exportData = results.map((result) => {
+      return {
+        Nombre: result.userName,
+        Código: result.uniqueCode || "",
+        Fecha: result.timestamp ? (result.timestamp.toDate ? result.timestamp.toDate().toLocaleString() : result.timestamp.toLocaleString()) : "",
+        ...result.categories_count,
+        Respuestas: Object.entries(result.responses)
+          .map(([qid, ans]) => `${qid}: ${ans}`)
+          .join(", "),
+      };
+    });
+    const ws = XLSX.utils.json_to_sheet(exportData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Resultados");
+    XLSX.writeFile(wb, "resultados_test_estrategias.xlsx");
+  };
   const [results, setResults] = useState([]);
   const [expandedUser, setExpandedUser] = useState(null);
   const [generalStats, setGeneralStats] = useState({
@@ -133,8 +153,8 @@ const ResultsAdmin = () => {
   }, []);
 
   const calculateAverageTime = () => {
-  if (results.length === 0) return "0s";
-  return "No disponible";
+    if (results.length === 0) return "0s";
+    return "No disponible";
   };
 
   const toggleExpanded = (userId) => {
@@ -188,16 +208,27 @@ const ResultsAdmin = () => {
             {generalStats.totalUsers}
           </p>
         </div>
-        <div className="bg-green-100 p-4 rounded-lg shadow-sm">
-          <p className="text-sm text-green-700">Tiempo Promedio</p>
-          <p className="text-3xl font-bold text-green-900">
-            {calculateAverageTime()}
-          </p>
+        <div className="bg-green-100 p-4 rounded-lg shadow-sm flex flex-col items-start">
+          <div className="flex w-full justify-between items-center">
+            <div>
+              <p className="text-sm text-green-700">Tiempo Promedio</p>
+              <p className="text-3xl font-bold text-green-900">
+                {calculateAverageTime()}
+              </p>
+            </div>
+            <button
+              onClick={handleExport}
+              className="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 transition duration-200 text-sm font-semibold"
+              title="Exportar a Excel"
+            >
+              Exportar Excel
+            </button>
+          </div>
         </div>
       </div>
 
       <h3 className="text-xl font-semibold text-gray-700 mt-8 mb-4">
-        Estadísticas de Categorías
+        Estadísticas de Respuestas Negativas
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {Object.keys(generalStats.percentages).map((category) => (
@@ -307,10 +338,22 @@ const ResultsAdmin = () => {
                                 }`}
                               >
                                 <div className="flex justify-between items-center mb-1">
-                                  <span className="font-bold text-gray-700">{questionId}. {question.category}</span>
-                                  <span className={`font-bold uppercase ${answer === "no" ? "text-red-700" : "text-green-700"}`}>{answer}</span>
+                                  <span className="font-bold text-gray-700">
+                                    {questionId}. {question.category}
+                                  </span>
+                                  <span
+                                    className={`font-bold uppercase ${
+                                      answer === "no"
+                                        ? "text-red-700"
+                                        : "text-green-700"
+                                    }`}
+                                  >
+                                    {answer}
+                                  </span>
                                 </div>
-                                <p className="text-gray-700 text-sm">{question.text}</p>
+                                <p className="text-gray-700 text-sm">
+                                  {question.text}
+                                </p>
                               </div>
                             );
                           })}

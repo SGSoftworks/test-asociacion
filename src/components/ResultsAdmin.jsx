@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase"; // Asume que tienes un archivo firebase.js
-import { collection, onSnapshot, updateDoc, doc } from "firebase/firestore";
+import { collection, onSnapshot, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { getAuth, signOut } from "firebase/auth"; // Importa la función de signOut
 import { useNavigate } from "react-router-dom"; // Importa useNavigate para la redirección
 import * as XLSX from "xlsx";
@@ -30,7 +30,19 @@ const ResultsAdmin = () => {
     XLSX.writeFile(wb, "resultados_test_estrategias.xlsx");
   };
   const [results, setResults] = useState([]);
-  const [deleting, setDeleting] = useState({ userId: null, questionId: null });
+  const [deletingUserId, setDeletingUserId] = useState(null);
+  // Elimina el registro completo de un usuario
+  const handleDeleteUser = async (userId) => {
+    if (!window.confirm("¿Seguro que deseas eliminar este usuario y todas sus respuestas?")) return;
+    setDeletingUserId(userId);
+    try {
+      await deleteDoc(doc(db, "tests_results", userId));
+    } catch (err) {
+      alert("Error al eliminar el usuario");
+      console.error(err);
+    }
+    setDeletingUserId(null);
+  };
   // Elimina solo una respuesta individual de un usuario
   const handleDeleteResponse = async (userId, questionId) => {
     if (!window.confirm("¿Seguro que deseas eliminar esta respuesta?")) return;
@@ -328,7 +340,7 @@ const ResultsAdmin = () => {
                       .map((key) => `${key}: ${result.categories_count[key]}`)
                       .join(", ")}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex gap-2">
                     <button
                       onClick={() => toggleExpanded(result.id)}
                       className="text-indigo-600 hover:text-indigo-900"
@@ -336,6 +348,13 @@ const ResultsAdmin = () => {
                       {expandedUser === result.id
                         ? "Ocultar"
                         : "Ver Respuestas"}
+                    </button>
+                    <button
+                      onClick={() => handleDeleteUser(result.id)}
+                      className="text-red-600 hover:text-red-900 ml-2"
+                      disabled={deletingUserId === result.id}
+                    >
+                      {deletingUserId === result.id ? "Eliminando..." : "Eliminar usuario"}
                     </button>
                   </td>
                 </tr>
